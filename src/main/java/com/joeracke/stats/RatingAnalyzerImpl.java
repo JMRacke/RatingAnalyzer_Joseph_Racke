@@ -10,21 +10,29 @@ public class RatingAnalyzerImpl implements RatingAnalyzer {
     private int[] intArray;
 
     public RatingAnalyzerImpl(int[] ratings)
-        /*throws IllegalArgumentException*/ {
+        throws IllegalArgumentException {
         // Add code here
 
-        if (ratings.equals(null) || ratings.length == 0) {
+        if (ratings.length == 0) {
             throw new AnalyzerConfigurationException("Array can't be empty or null!", new IllegalArgumentException());
         } else {
+            Arrays.sort(ratings);
             setIntArray(ratings);
         }
     }
 
     //Business Methods
+
+    /*
+     *  The mean() takes the intArray field and adds up all the numbers
+     * then it divides that total by the # of integers in the array to
+     * get the average (or mean) and returns it.
+     */
     @Override
     public double mean() {
         int sum = 0;
-        double result = 0.0;
+        double result;
+        int[] intArray = getIntArray();
         for (int i : intArray) {
             sum += i;
         }
@@ -34,7 +42,8 @@ public class RatingAnalyzerImpl implements RatingAnalyzer {
 
     @Override
     public double median() {
-        Arrays.sort(intArray);
+
+        int[] intArray = getIntArray();
         double median;
         if(intArray.length % 2 == 0) {
             int m1,m2;
@@ -51,23 +60,35 @@ public class RatingAnalyzerImpl implements RatingAnalyzer {
     public int[] mode() {
         HashMap<Integer,Integer> mapOfIntegers = new HashMap<>();
         int count = 0;
-        int keyNumber = 0;
-        for(int i = 0; i < intArray.length; i++) {
-            if(mapOfIntegers.get(intArray[i]) != null) {
-                int temp = mapOfIntegers.get(intArray[i]);
-                temp++;
-                mapOfIntegers.put(intArray[i], temp);
 
-                if(temp > count) {
+        /*
+         * Read through the intArray field and add each number as a key
+         * to the hashmap "mapOfIntegers" and set the value to 1 (for 1 occurence).
+         * If the key is already in the hashmap, then it increments the value of that
+         * key by 1 more. Immediately following the for-loop, if all keys were unique,
+         * it sets the count to 1. The count keeps track of the highest value of all
+         * the keys (which any key with that value will be the mode).
+         */
+        for (int j : getIntArray()) {
+            if (mapOfIntegers.get(j) != null) {
+                int temp = mapOfIntegers.get(j);
+                temp++;
+                mapOfIntegers.put(j, temp);
+
+                if (temp > count) {
                     count = temp;
-                    keyNumber = intArray[i];
                 }
             } else {
-                mapOfIntegers.put(intArray[i],1);
+                mapOfIntegers.put(j, 1);
             }
         }
-        if(count == 0) { count = 1; };
+        if(count == 0) { count = 1; }
 
+        /*
+         * This List and for-loop goes through the hashmap and takes each entrySet
+         * and checks the value as compared to the highest count. If that key's value
+         * is equal to the highest count it adds it to the list.
+         */
         List<Integer> resultList = new ArrayList<>();
         for (Map.Entry<Integer, Integer> entry : mapOfIntegers.entrySet()) {
             Integer key = entry.getKey();
@@ -76,18 +97,22 @@ public class RatingAnalyzerImpl implements RatingAnalyzer {
                 resultList.add(key);
             }
         }
-//        for(int i = 0; i < mapOfIntegers.size(); i++) {
-//            if(mapOfIntegers.get(intArray[i]) == count) {
-//                resultList.add();
-//            }
-//        }
 
+        /*
+         * This portion takes the List from above and converts it to an int array to
+         * return to the calling method. At this point the only items that should be
+         * in the list are the one or more numbers that make up the mode.
+         */
         int[] result = new int[resultList.size()];
         for(int i = 0; i < result.length; i++) {
             result[i] = resultList.get(i);
         }
 
-
+        /*
+         * Added sort because I found that when there are many numbers to add to the
+         * Hashmap, Java wasn't always placing them in the order received.
+         */
+        Arrays.sort(result);
         return result;
     }
 
