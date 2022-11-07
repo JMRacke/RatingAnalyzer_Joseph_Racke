@@ -6,7 +6,9 @@
 <h4>sub-directory 2</h4>
 <p>more stuff</p>
 <h3>Team Members</h3><hr>
-<li>Joe Racke</li>
+<ul>
+  <li>Joe Racke</li>
+</ul>
 <h3>Months</h3><hr>
 <ol>
   <li>January</li>
