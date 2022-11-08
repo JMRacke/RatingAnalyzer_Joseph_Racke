@@ -7,11 +7,12 @@ import java.util.*;
 
 public class RatingAnalyzerImpl implements RatingAnalyzer {
 
+    // Fields
     private int[] intArray;
 
+    // Constructor
     public RatingAnalyzerImpl(int[] ratings)
         throws IllegalArgumentException {
-        // Add code here
 
         if (ratings.length == 0) {
             throw new AnalyzerConfigurationException("Array can't be empty or null!", new IllegalArgumentException());
@@ -40,6 +41,12 @@ public class RatingAnalyzerImpl implements RatingAnalyzer {
         return result;
     }
 
+    /*
+     * The median() takes the intArray field and then determines the median
+     * number, or the middle most index. If the array has an even amount of
+     * numbers then it will get the average of those two numbers and return
+     * that as the median.
+     */
     @Override
     public double median() {
 
@@ -56,6 +63,12 @@ public class RatingAnalyzerImpl implements RatingAnalyzer {
         return median;
     }
 
+    /*
+     * The mode() method takes the intArray field and passes it into a hashMap
+     * to get the set of unique numbers in the array and stores values to each
+     * for each time that number occurs in the array. Each step in the process
+     * is described before the steps below.
+     */
     @Override
     public int[] mode() {
         HashMap<Integer,Integer> mapOfIntegers = new HashMap<>();
@@ -63,7 +76,7 @@ public class RatingAnalyzerImpl implements RatingAnalyzer {
 
         /*
          * Read through the intArray field and add each number as a key
-         * to the hashmap "mapOfIntegers" and set the value to 1 (for 1 occurence).
+         * to the hashmap "mapOfIntegers" and set the value to 1 (for 1 occurrence).
          * If the key is already in the hashmap, then it increments the value of that
          * key by 1 more. Immediately following the for-loop, if all keys were unique,
          * it sets the count to 1. The count keeps track of the highest value of all
@@ -124,5 +137,12 @@ public class RatingAnalyzerImpl implements RatingAnalyzer {
 
     public void setIntArray(int[] intArray) {
         this.intArray = intArray;
+    }
+
+    @Override
+    public String toString() {
+        return Object.class.getSimpleName() +
+                " contains the intArray=" + Arrays.toString(intArray) +
+                '}';
     }
 }
