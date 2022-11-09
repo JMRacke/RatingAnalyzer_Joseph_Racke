@@ -1,17 +1,25 @@
-# Ratings Analyzer
+# Ratings Analyzer Implementation
 ## Project Description
-This is the readme file for the Ratings Analyzer project
-## sub-directory 1
-stuff
-## sub-directory 2
-more stuff
+This is the readme file for the Ratings Analyzer project. The RatingAnalyzerImpl.java
+file houses the RatingAnalyzerImpl class that implements the RatingAnalyzer interface.
+Each instantiation of the class stores an integer array. It will check to ensure the
+array is not empty and that it isn't null either. The methods that can be performed
+determine the mean (average), median, and modes of the numbers that occur within the
+stored array. 
+
+
 ### Team Members
 + Joe Racke
 
-### Months
+## Components
+### Fields
+1. intArray
 
-1. January
-2. February
-3. March
-
-![Image](https://github.com/sashinpivotal/java-code-examples/raw/main/images/image1.png)
+### Methods
+1. Constructor(int[])
+2. double mean()
+3. double median()
+4. int[] mode()
+5. int[] getIntArray()
+6. void setIntArray(int[])
+7. String toString()
