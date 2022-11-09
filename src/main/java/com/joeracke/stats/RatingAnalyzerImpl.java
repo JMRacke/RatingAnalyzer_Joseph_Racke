@@ -1,3 +1,10 @@
+/*
+ * Author: Joseph M Racke
+ * Program: This is the implementation class for rating-analyzer-1.2.jar
+ * created for TLG Learning Cohort 22.10BL AmazonSDE10
+ * Date: 08 NOV 2022
+ */
+
 package com.joeracke.stats;
 
 import org.stats.AnalyzerConfigurationException;
@@ -12,10 +19,11 @@ public class RatingAnalyzerImpl implements RatingAnalyzer {
 
     // Constructor
     public RatingAnalyzerImpl(int[] ratings)
-        throws IllegalArgumentException {
+            throws IllegalArgumentException {
 
         if (ratings.length == 0) {
-            throw new AnalyzerConfigurationException("Array can't be empty or null!", new IllegalArgumentException());
+            throw new AnalyzerConfigurationException(
+                    "Array can't be empty or null!", new IllegalArgumentException());
         } else {
             Arrays.sort(ratings);
             setIntArray(ratings);
@@ -52,10 +60,14 @@ public class RatingAnalyzerImpl implements RatingAnalyzer {
 
         int[] intArray = getIntArray();
         double median;
-        if(intArray.length % 2 == 0) {
-            int m1,m2;
-            m1 = intArray[(intArray.length / 2) - 1]; // Highest number in the lowest half
-            m2 = intArray[(intArray.length / 2)]; // Lowest number in the highest half
+        if (intArray.length % 2 == 0) {
+            int m1, m2;
+
+            // Highest number in the lowest half
+            m1 = intArray[(intArray.length / 2) - 1];
+            // Lowest number in the highest half
+            m2 = intArray[(intArray.length / 2)];
+
             median = (double) (m1 + m2) / 2;
         } else {
             median = intArray[intArray.length / 2];
@@ -71,7 +83,7 @@ public class RatingAnalyzerImpl implements RatingAnalyzer {
      */
     @Override
     public int[] mode() {
-        HashMap<Integer,Integer> mapOfIntegers = new HashMap<>();
+        HashMap<Integer, Integer> mapOfIntegers = new HashMap<>();
         int count = 0;
 
         /*
@@ -95,7 +107,9 @@ public class RatingAnalyzerImpl implements RatingAnalyzer {
                 mapOfIntegers.put(j, 1);
             }
         }
-        if(count == 0) { count = 1; }
+        if (count == 0) {
+            count = 1;
+        }
 
         /*
          * This List and for-loop goes through the hashmap and takes each entrySet
@@ -106,7 +120,7 @@ public class RatingAnalyzerImpl implements RatingAnalyzer {
         for (Map.Entry<Integer, Integer> entry : mapOfIntegers.entrySet()) {
             Integer key = entry.getKey();
             Integer value = entry.getValue();
-            if(value == count) {
+            if (value == count) {
                 resultList.add(key);
             }
         }
@@ -117,7 +131,7 @@ public class RatingAnalyzerImpl implements RatingAnalyzer {
          * in the list are the one or more numbers that make up the mode.
          */
         int[] result = new int[resultList.size()];
-        for(int i = 0; i < result.length; i++) {
+        for (int i = 0; i < result.length; i++) {
             result[i] = resultList.get(i);
         }
 
@@ -130,7 +144,6 @@ public class RatingAnalyzerImpl implements RatingAnalyzer {
     }
 
     // Accessors
-
     public int[] getIntArray() {
         return intArray;
     }
@@ -139,6 +152,7 @@ public class RatingAnalyzerImpl implements RatingAnalyzer {
         this.intArray = intArray;
     }
 
+    // toString()
     @Override
     public String toString() {
         return Object.class.getSimpleName() +

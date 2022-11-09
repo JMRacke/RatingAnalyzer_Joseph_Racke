@@ -1,3 +1,11 @@
+/*
+ * Author: Joseph M Racke
+ * Program: This is the implementation class tester for
+ * rating-analyzer-1.2.jar created for TLG Learning
+ * Cohort 22.10BL AmazonSDE10
+ * Date: 08 NOV 2022
+ */
+
 package com.joeracke.stats;
 
 import org.junit.Before;
@@ -42,6 +50,7 @@ public class RatingAnalyzerTest {
         assertEquals(8775.4545454545, analyzer4.mean(), 0.01);
         assertEquals(-258.8, negIntAnalyzer.mean(), 0.01);
         assertEquals(-169.6, posAndNegAnalyzer.mean(), 0.01);
+
     }
 
     @Test
